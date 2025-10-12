@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3010","http://localhost"],
+    origin: ["http://localhost:3010","http://localhost","https://sistema-biblioteca-cedhi-frontend.vercel.app/"],
     credentials: true,
   })
 );
