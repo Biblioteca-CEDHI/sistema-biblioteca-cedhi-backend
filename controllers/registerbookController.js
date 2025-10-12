@@ -1,8 +1,3 @@
-/**
- * code that allow you to update or insert new book information
- */
-
-
 const Libro = require('../models/libroModel');
 
 /**
