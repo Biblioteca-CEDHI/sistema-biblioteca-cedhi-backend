@@ -4,7 +4,8 @@ const roleMap = {
   'owner': 1, // igual que el admin
   'admin': 1,
   'bibliotecario': 2,
-  'tutor': 3
+  'tutor': 3,
+  'general_user': 4
 };
 
 const loginWithToken = (req, res) => {
@@ -13,6 +14,7 @@ const loginWithToken = (req, res) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(token);
     const user = {
       userId: decoded.userId,
       email: decoded.email,

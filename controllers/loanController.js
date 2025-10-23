@@ -8,6 +8,8 @@ const {searchStudentById} = require('../services/alumnoServices')
 const{Op} = require("sequelize");
 const Usuario_cedhi = require('../models/usuarioModel');
 const Sancion = require('../models/sancionmodel');
+const sequelize = require("../config/db");
+const { QueryTypes } = require('sequelize');
 
 // Consultar disponibilidad del libro por regsitro
 
@@ -148,7 +150,31 @@ const getAllLoans = async (req, res) => {
     }
 };
 
+const getLoansForUser = async (req, res) => {
+    console.log(req.user);
 
+  try {
+    const { email } = req.user;
+    console.log(email);
+    const prestamos = await sequelize.query(
+      `SELECT p.*
+       FROM "Prestamos" p
+       JOIN "Usuario_cedhis" u ON p.codigo = u.codigo
+       WHERE u.email = :email`,
+      {
+        replacements: { email },
+        type: QueryTypes.SELECT,
+      }
+    );
+    console.log("Prestamos encontrados para el usuario:", prestamos);
+    res.status(200).json({
+      loans: prestamos, // los préstamos encontrados
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mensaje: "Error al obtener los préstamos del usuario", error: error.message });
+  }
+};
 
 //modulo de prestamos atrasados
 
@@ -259,6 +285,7 @@ const deleteLoan = async(req,res)=>{
 
 module.exports = {
     getAllLoans,
+    getLoansForUser,
     loanBookRegister,
     loansDelay,
     loansReturn,
