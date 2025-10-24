@@ -94,7 +94,10 @@ const getSanciones2 = async (req, res) => {
         type: QueryTypes.SELECT,
       }
     );
-    console.log("Sancion");
+    console.log("Sancion", sanciones);
+    res.status(200).json({
+      sancion: sanciones,
+    });
   } catch (error) {
     console.log("EL ERROR ES: ", error);
     res.status(500).json({ error: "Error en el servidor" });

@@ -168,7 +168,7 @@ const getLoansForUser = async (req, res) => {
     );
     console.log("Prestamos encontrados para el usuario:", prestamos);
     res.status(200).json({
-      loans: prestamos, // los préstamos encontrados
+      loans: prestamos,
     });
   } catch (error) {
     console.log(error);
