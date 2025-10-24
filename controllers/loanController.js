@@ -198,7 +198,7 @@ const loansDelay =async (req,res)=>{
     }
 };
 
-//Modulo de registrar devolucion de libro, obtener todos los los libros que tengan 
+//Modulo de registrar devolucion de libro, obtener todos los libros que tengan 
 //id fecha prestamo
 const loansReturn = async(req,res)=>{
     const {id_prestamo,codigo,fecha_real} = req.body;
@@ -256,7 +256,7 @@ const loansReturn = async(req,res)=>{
         
         
     } catch (error) {
-        console.log("Error al devolver el el libro",error);
+        console.log("Error al devolver el libro",error);
         res.status(500).json({error:"Error en el servidor"});
     }
 }
