@@ -104,6 +104,30 @@ const getSanciones2 = async (req, res) => {
   }
 };
 
+const getSancionesForUser = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const sanciones = await sequelize.query(
+       `SELECT s.*
+        FROM "Sancions" s
+        JOIN "Usuario_cedhis" u
+        ON s.id_usuario = u.codigo
+        WHERE u.email = :email`,
+      {
+        replacements: { email },
+        type: QueryTypes.SELECT,
+      }
+    );
+    console.log("Sancion", sanciones);
+    res.status(200).json({
+      sancion: sanciones,
+    });
+  } catch (error) {
+    console.log("EL ERROR ES: ", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
+};
+
 const removeSancion = async (req, res) => {
   try {
     const { id_sancion } = req.params;
@@ -129,4 +153,5 @@ module.exports = {
   removeSancion,
   getSanciones2,
   getSanciones3,
+  getSancionesForUser,
 };

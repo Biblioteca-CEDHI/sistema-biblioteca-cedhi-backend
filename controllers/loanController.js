@@ -155,7 +155,6 @@ const getLoansForUser = async (req, res) => {
 
   try {
     const { email } = req.user;
-    console.log(email);
     const prestamos = await sequelize.query(
       `SELECT p.*, l.titulo
        FROM "Prestamos" p
