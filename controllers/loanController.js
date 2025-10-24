@@ -157,9 +157,10 @@ const getLoansForUser = async (req, res) => {
     const { email } = req.user;
     console.log(email);
     const prestamos = await sequelize.query(
-      `SELECT p.*
+      `SELECT p.*, l.titulo
        FROM "Prestamos" p
        JOIN "Usuario_cedhis" u ON p.codigo = u.codigo
+       JOIN "libros" l ON l.registro = p.registro
        WHERE u.email = :email`,
       {
         replacements: { email },
