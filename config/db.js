@@ -14,7 +14,6 @@ const sequelize = new Sequelize(
         console.log(message);
       }
     },
-    logging: console.log, 
   }
 );
 
