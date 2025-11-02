@@ -150,26 +150,63 @@ const getAllLoans = async (req, res) => {
     }
 };
 
+// obtiene todos los prestamos de un usuario
+
 const getLoansForUser = async (req, res) => {
     console.log(req.user);
 
   try {
     const { email } = req.user;
-    console.log(email);
     const prestamos = await sequelize.query(
-      `SELECT p.*
+      `SELECT p.*, l.titulo
        FROM "Prestamos" p
        JOIN "Usuario_cedhis" u ON p.codigo = u.codigo
+       JOIN "libros" l ON l.registro = p.registro
        WHERE u.email = :email`,
       {
         replacements: { email },
         type: QueryTypes.SELECT,
       }
     );
-    console.log("Prestamos encontrados para el usuario:", prestamos);
-    res.status(200).json({
-      loans: prestamos,
+    const fecha_actual = new Date();
+
+    const prestamosProcesados = prestamos.map((p) => {
+      const fechaDevolucion = new Date(p.fecha_devolucion_estimada);
+
+      let estado =
+        p.estado === "Devuelto"
+          ? "Devuelto"
+          : fecha_actual > fechaDevolucion
+          ? "Atrasado"
+          : "Prestado";
+
+      let dias = 0;
+
+      if (estado === "Atrasado") {
+        dias = Math.floor(
+          (fecha_actual.getTime() - fechaDevolucion.getTime()) /
+            (1000 * 60 * 60 * 24)
+        );
+      } else {
+        dias = Math.ceil(
+          (fechaDevolucion.getTime() - fecha_actual.getTime()) /
+            (1000 * 60 * 60 * 24)
+        );
+      }
+
+      return {
+        ...p,
+        estado,
+        dias
+      };
     });
+
+    console.log("Préstamos procesados para el usuario:", prestamosProcesados);
+
+    res.status(200).json({
+      loans: prestamosProcesados,
+    });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ mensaje: "Error al obtener los préstamos del usuario", error: error.message });
