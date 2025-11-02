@@ -4,7 +4,6 @@ module.exports = function verifyToken(req, res, next) {
   // Extraer el token del encabezado Authorization (formato: Bearer <token>)
   const token = req.headers["authorization"]?.split(" ")[1] || req.body.token;
   if (!token) return res.status(401).json({ message: "No token provided" });
-  console.log("token", token);
   try {
     const user = verifyTokenFunction(token); 
     req.user = user; 

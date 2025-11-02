@@ -14,7 +14,6 @@ const loginWithToken = (req, res) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(token);
     const user = {
       userId: decoded.userId,
       email: decoded.email,

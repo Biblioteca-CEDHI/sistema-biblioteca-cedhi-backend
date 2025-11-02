@@ -17,7 +17,6 @@ const getFavoriteBooks = async (req, res) => {
         type: QueryTypes.SELECT,
       }
     );
-    console.log("favoritos: ", favoritos);
     res.status(200).json({ favorites: favoritos });
   } catch (error) {
     console.log(error);
@@ -31,9 +30,6 @@ const addFavorite = async (req, res) => {
     try {
         const { email } = req.user;
         const { registro } = req.body;
-        console.log("HEADER AUTH RECIBIDO:", req.headers.authorization);
-        console.log("BODY RECIBIDO:", req.body);
-        console.log("USUARIO DECODIFICADO:", req.user);
 
         const userResult = await sequelize.query(
         `SELECT codigo FROM "Usuario_cedhis" WHERE email = :email`,
@@ -62,14 +58,12 @@ const removeFavorite = async (req, res) => {
     try {
         const { email } = req.user;
         const { registro } = req.body;
-        console.log("registro: ", registro);
 
         const userResult = await sequelize.query(
         `SELECT codigo FROM "Usuario_cedhis" WHERE email = :email`,
         { replacements: { email }, type: QueryTypes.SELECT }
         );
         const userCodigo = userResult[0]?.codigo;
-        console.log("codigo usuario: ", userCodigo);
 
         await sequelize.query(
             `DELETE FROM libros_favoritos WHERE codigo = :userCodigo AND registro = :registro`,

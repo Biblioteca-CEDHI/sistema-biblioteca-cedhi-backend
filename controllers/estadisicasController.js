@@ -131,7 +131,6 @@ const getActiveLoansForUser = async (req, res) => {
         type: QueryTypes.SELECT,
       }
     );
-    console.log("prestamos activos: ", prestamosActivos);
     res.status(200).json({
       activeLoans: prestamosActivos,
       total: prestamosActivos.length,
