@@ -21,12 +21,18 @@ const app = express();
 // MIDDLEWARES
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:3010","http://localhost", "https://sistema-biblioteca-cedhi-frontend.vercel.app"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:3010",
+    "http://localhost",
+    "https://sistema-biblioteca-cedhi-frontend.vercel.app",
+    "https://bibliotecacedhi.infinityfreeapp.com"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 
 //ROUTES
 
