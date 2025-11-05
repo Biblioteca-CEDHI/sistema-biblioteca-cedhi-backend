@@ -9,6 +9,8 @@ const roleMap = {
 };
 
 const loginWithToken = (req, res) => {
+  console.log("BODY:", req.body);
+  console.log("TOKEN:", req.body.token);
   const { token } = req.body;
   if (!token) return res.status(400).json({ success: false, message: 'Token no enviado' });
 
