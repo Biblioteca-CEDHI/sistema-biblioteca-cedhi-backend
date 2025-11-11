@@ -25,17 +25,11 @@ const Usuario_cedhi = sequelize.define('Usuario_cedhi',
             type:DataTypes.STRING,
             allowNull:false,
         },
-        sexo:{
-            type:DataTypes.STRING,
-            allowNull:false
-        },
         existe_sancion:{
             type:DataTypes.BOOLEAN,
             allowNull:true
         }
-        
     }
-
 );
 
 module.exports = Usuario_cedhi;

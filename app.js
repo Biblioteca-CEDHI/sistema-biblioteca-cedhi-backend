@@ -4,12 +4,7 @@ const sequelize = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const booksRoutes = require("./routes/booksRoutes");
 const csvRoutes = require("./routes/csvRoutes");
-const Libro = require("./models/libroModel");
-const User = require("./models/userModel");
-const Usuario_cedhi = require("./models/usuarioModel");
-const Sancion = require("./models/sancionmodel");
 const loanRoutes = require("./routes/loansRoutes");
-const Prestamo = require("./models/prestamosModel");
 const sancionRoutes = require("./routes/sancionRoutes");
 const usuariosRoutes = require("./routes/usuarioRoutes");
 const statisticsRoutes = require("./routes/statisticsRoutes");
@@ -23,8 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: [
-    "https://sistema-biblioteca-cedhi-frontend.vercel.app",
-    "https://bibliotecacedhi.infinityfreeapp.com"
+    "http://localhost:3010","http://localhost"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

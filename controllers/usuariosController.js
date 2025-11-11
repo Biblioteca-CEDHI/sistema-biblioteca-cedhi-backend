@@ -16,14 +16,13 @@ const getAllUsuarios = async(req,res) => {
 
 
 const addUsuarioCedhi = async(req,res) =>{
-    const{codigo, nombres,email,categoria,sexo} = req.body;
+    const{codigo, nombres,email,categoria} = req.body;
     try {
         const nuevoUsuario = await Usuario_cedhi.create({
             codigo:codigo,
             nombres:nombres,
             email:email,
-            categoria:categoria,
-            sexo:sexo
+            categoria:categoria
         })
         res.status(201).json({
             mensaje:"Usuario agregado correctamente",

@@ -39,7 +39,6 @@ const processXLSXUsers = async (req, res) => {
                 nombres: row.NOMBRES,
                 email: row.EMAIL,
                 categoria: row.CATEGORIA,
-                sexo: row.SEXO,
                 existe_sancion: 0,
             });
 
@@ -48,7 +47,6 @@ const processXLSXUsers = async (req, res) => {
                 nombres: row.NOMBRES,
                 email: row.EMAIL,
                 categoria: row.CATEGORIA,
-                sexo: row.SEXO,
                 existe_sancion: 0,
             });
 
@@ -143,12 +141,11 @@ const readXLSX = (file_path) => {
                     NOMBRES: row['NOMBRES'] || row['Nombres'] || row['nombres'],
                     EMAIL: row['EMAIL'] || row['Email'] || row['email'],
                     CATEGORIA: row['CATEGORIA'] || row['Categoria'] || row['categoria'],
-                    SEXO: row['SEXO'] || row['Sexo'] || row['sexo'],
                 
             }
             return normalizedRow;
         });
-        rows = rows.filter(row=>row.CODIGO && row.NOMBRES && row.EMAIL && row.CATEGORIA && row.SEXO);
+        rows = rows.filter(row=>row.CODIGO && row.NOMBRES && row.EMAIL && row.CATEGORIA);
 
             resolve(rows);
         } catch (error) {
